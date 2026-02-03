@@ -6,8 +6,72 @@ import { Phone, Globe, Mail, MapPin, Facebook, Twitter, Instagram, Linkedin, X }
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [showSplash, setShowSplash] = useState(true)
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    countryCode: '+91',
+    enquiry: ''
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState(null) // 'success' | 'error' | null
 
-  const toggleModal = () => setIsModalOpen(!isModalOpen)
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen)
+    setSubmitStatus(null)
+  }
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData(prev => ({ ...prev, [name]: value }))
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitStatus(null)
+
+    // YOU MUST REPLACE THIS ACCESS KEY WITH YOUR OWN FROM https://web3forms.com/
+    const ACCESS_KEY = "fe8954f1-a71e-4986-975f-dda742e6368b"
+
+    const data = {
+      ...formData,
+      access_key: ACCESS_KEY,
+      subject: `New Enquiry from ${formData.name}`,
+      from_name: "SAS TECH Website",
+      message: `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.countryCode} ${formData.phone}\n\nEnquiry:\n${formData.enquiry}`
+    }
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+
+      const result = await response.json()
+      if (result.success) {
+        setSubmitStatus('success')
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          countryCode: '+91',
+          enquiry: ''
+        })
+      } else {
+        setSubmitStatus('error')
+      }
+    } catch (error) {
+      console.error("Form submission error:", error)
+      setSubmitStatus('error')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -113,19 +177,48 @@ function App() {
               <h2 style={{ textAlign: 'center', fontSize: '2.5rem', marginBottom: '10px' }}>Get in <span style={{ color: 'var(--primary)' }}>Touch</span></h2>
               <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '30px', fontSize: '0.9rem' }}>Have a project in mind? Let's discuss how we can help you.</p>
 
-              <form className="contact-form">
+              <form className="contact-form" onSubmit={handleSubmit}>
+                {submitStatus === 'success' && (
+                  <div style={{ padding: '15px', background: 'rgba(74, 222, 128, 0.2)', color: '#4ade80', borderRadius: '8px', marginBottom: '20px', textAlign: 'center', border: '1px solid #4ade80' }}>
+                    Message sent successfully! We'll get back to you soon.
+                  </div>
+                )}
+                {submitStatus === 'error' && (
+                  <div style={{ padding: '15px', background: 'rgba(248, 113, 113, 0.2)', color: '#f87171', borderRadius: '8px', marginBottom: '20px', textAlign: 'center', border: '1px solid #f87171' }}>
+                    Something went wrong. Please try again or email us directly.
+                  </div>
+                )}
+
                 <div className="form-group">
                   <label>Name</label>
-                  <input type="text" placeholder="Your Name" required />
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Your Name"
+                    required
+                  />
                 </div>
                 <div className="form-group">
                   <label>Email</label>
-                  <input type="email" placeholder="Your Email" required />
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="Your Email"
+                    required
+                  />
                 </div>
                 <div className="form-group">
                   <label>Contact Number</label>
                   <div className="phone-input">
-                    <select defaultValue="+91">
+                    <select
+                      name="countryCode"
+                      value={formData.countryCode}
+                      onChange={handleChange}
+                    >
                       <option value="+91">India (+91)</option>
                       <option value="+92">Pakistan (+92)</option>
                       <option value="+880">Bangladesh (+880)</option>
@@ -137,14 +230,35 @@ function App() {
                       <option value="+95">Myanmar (+95)</option>
                       <option value="+66">Thailand (+66)</option>
                     </select>
-                    <input type="tel" placeholder="Phone Number" required />
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      placeholder="Phone Number"
+                      required
+                    />
                   </div>
                 </div>
                 <div className="form-group">
                   <label>Enquiry</label>
-                  <textarea placeholder="Tell us about your project" rows="4" required></textarea>
+                  <textarea
+                    name="enquiry"
+                    value={formData.enquiry}
+                    onChange={handleChange}
+                    placeholder="Tell us about your project"
+                    rows="4"
+                    required
+                  ></textarea>
                 </div>
-                <button type="submit" className="submit-btn" style={{ width: '100%' }}>Send Message</button>
+                <button
+                  type="submit"
+                  className="submit-btn"
+                  style={{ width: '100%' }}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
+                </button>
               </form>
             </section>
           </div>
