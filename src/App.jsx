@@ -148,9 +148,10 @@ function App() {
         <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '40px' }}>Comprehensive solutions for your digital growth.</p>
         <div className="services-grid">
           {services.map((service, index) => (
-            <div key={index} className="service-card glass">
+            <div key={index} className="service-card">
+              <span className="service-num">0{index + 1}</span>
               <h3>{service.title}</h3>
-              <p style={{ color: 'var(--text-muted)' }}>{service.desc}</p>
+              <p>{service.desc}</p>
             </div>
           ))}
         </div>
