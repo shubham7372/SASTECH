@@ -1,0 +1,207 @@
+import { useState, useEffect } from 'react'
+import './App.css'
+import logo from './assets/logo.jpg'
+import { Phone, Globe, Mail, MapPin, Facebook, Twitter, Instagram, Linkedin, X } from 'lucide-react'
+
+function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [showSplash, setShowSplash] = useState(true)
+
+  const toggleModal = () => setIsModalOpen(!isModalOpen)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+    }, 2500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const services = [
+    { title: "🌐 Website Development", desc: "Crafting modern, responsive static and dynamic websites tailored to your business goals." },
+    { title: "🧩 PHP Development", desc: "Scalable and secure server-side applications using robust PHP frameworks." },
+    { title: "⚛️ MERN Stack", desc: "Full-stack development with MongoDB, Express, React, and Node.js for high-performance apps." },
+    { title: "🐍 Python Development", desc: "Leveraging Python for automation, web backends, and data-driven solutions." },
+    { title: "💻 C & C++ Apps", desc: "High-performance desktop applications and system software with optimized code." },
+    { title: "🧱 .NET Development", desc: "Enterprise-grade solutions building reliable and scalable applications on the .NET framework." }
+  ]
+
+  const workflow = [
+    { name: "Consultation", desc: "Understanding your vision and business requirements." },
+    { name: "Design", desc: "Creating modern UI/UX focused on user engagement." },
+    { name: "Development", desc: "Robust coding following industry best practices." },
+    { name: "Testing", desc: "Rigorous quality assurance for bug-free performance." },
+    { name: "Deployment", desc: "Launching your product with long-term maintenance." }
+  ]
+
+  if (showSplash) {
+    return (
+      <div className="splash-screen">
+        <div className="splash-content">
+          <img src={logo} alt="SAS TECH" className="splash-logo" />
+          <h1 className="splash-text">
+            <span>Welcome to</span>
+            <span className="brand-name">SASTECH</span>
+          </h1>
+          <div className="loading-bar">
+            <div className="loading-progress"></div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className={`app-container ${!showSplash ? 'fade-in' : ''}`}>
+      <nav className="navbar glass">
+        <div className="logo-container" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <img src={logo} alt="SAS TECH" style={{ height: '40px', borderRadius: '5px' }} />
+          <span style={{ fontWeight: 800, fontSize: '1.2rem', color: 'var(--primary)' }}>SAS TECH</span>
+        </div>
+        <div className="nav-links">
+          <a href="#home">Home</a>
+          <a href="#services">Services</a>
+          <a href="#process">Process</a>
+          <a href="#contact-info">Contact</a>
+        </div>
+        <button className="get-started-btn" onClick={toggleModal}>ENQUIRE NOW</button>
+      </nav>
+
+      <section id="home" className="hero">
+        <img src={logo} className="hero-logo" alt="SAS TECH Logo" />
+        <h1 className="gradient-text">SAS TECH</h1>
+        <p>
+          A full-service software and web development company specializing in end-to-end digital solutions.
+          We deliver high-quality, scalable, and secure applications.
+        </p>
+        <div style={{ display: 'flex', gap: '15px' }}>
+          <button style={{ background: 'var(--primary)', color: 'var(--bg-deep)' }}>Our Portfolio</button>
+          <button onClick={toggleModal}>Learn More</button>
+        </div>
+      </section>
+
+      <section id="services">
+        <h2 style={{ textAlign: 'center', fontSize: '2.5rem', marginBottom: '10px' }}>Our <span style={{ color: 'var(--primary)' }}>Services</span></h2>
+        <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '40px' }}>Comprehensive solutions for your digital growth.</p>
+        <div className="services-grid">
+          {services.map((service, index) => (
+            <div key={index} className="service-card glass">
+              <h3>{service.title}</h3>
+              <p style={{ color: 'var(--text-muted)' }}>{service.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="process">
+        <h2 style={{ textAlign: 'center', fontSize: '2.5rem', marginBottom: '50px' }}>How We <span style={{ color: 'var(--primary)' }}>Work</span></h2>
+        <div className="process-steps">
+          {workflow.map((step, index) => (
+            <div key={index} className="step">
+              <span className="step-num">0{index + 1}</span>
+              <h3 style={{ marginBottom: '10px' }}>{step.name}</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{step.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {isModalOpen && (
+        <div className="modal-overlay" onClick={toggleModal}>
+          <div className="modal-content glass" onClick={(e) => e.stopPropagation()}>
+            <button className="close-btn" onClick={toggleModal}><X size={24} /></button>
+            <section id="contact" className="contact-form-section">
+              <h2 style={{ textAlign: 'center', fontSize: '2.5rem', marginBottom: '10px' }}>Get in <span style={{ color: 'var(--primary)' }}>Touch</span></h2>
+              <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '30px', fontSize: '0.9rem' }}>Have a project in mind? Let's discuss how we can help you.</p>
+
+              <form className="contact-form">
+                <div className="form-group">
+                  <label>Name</label>
+                  <input type="text" placeholder="Your Name" required />
+                </div>
+                <div className="form-group">
+                  <label>Email</label>
+                  <input type="email" placeholder="Your Email" required />
+                </div>
+                <div className="form-group">
+                  <label>Contact Number</label>
+                  <div className="phone-input">
+                    <select defaultValue="+91">
+                      <option value="+91">India (+91)</option>
+                      <option value="+92">Pakistan (+92)</option>
+                      <option value="+880">Bangladesh (+880)</option>
+                      <option value="+94">Sri Lanka (+94)</option>
+                      <option value="+977">Nepal (+977)</option>
+                      <option value="+975">Bhutan (+975)</option>
+                      <option value="+960">Maldives (+960)</option>
+                      <option value="+93">Afghanistan (+93)</option>
+                      <option value="+95">Myanmar (+95)</option>
+                      <option value="+66">Thailand (+66)</option>
+                    </select>
+                    <input type="tel" placeholder="Phone Number" required />
+                  </div>
+                </div>
+                <div className="form-group">
+                  <label>Enquiry</label>
+                  <textarea placeholder="Tell us about your project" rows="4" required></textarea>
+                </div>
+                <button type="submit" className="submit-btn" style={{ width: '100%' }}>Send Message</button>
+              </form>
+            </section>
+          </div>
+        </div>
+      )}
+
+      <footer id="contact-info" className="footer">
+        <div className="footer-dark-shape" />
+        <div className="footer-content">
+          <div className="footer-left">
+            <h2>SAS TECH</h2>
+            <p className="subtitle">Software & Web Solutions</p>
+            <div className="contact-info">
+              <a href="tel:+917372849408" className="contact-item">
+                <div className="contact-icon"><Phone size={18} /></div>
+                <span>+91 7372849408</span>
+              </a>
+              <a href="https://www.sastech.in" target="_blank" rel="noopener noreferrer" className="contact-item" style={{ marginTop: '15px' }}>
+                <div className="contact-icon"><Globe size={18} /></div>
+                <span>www.sastech.in</span>
+              </a>
+              <a href="mailto:shubhamwork800@gmail.com" className="contact-item" style={{ marginTop: '15px' }}>
+                <div className="contact-icon"><Mail size={18} /></div>
+                <span>shubhamwork800@gmail.com</span>
+              </a>
+              <div className="contact-item" style={{ marginTop: '15px' }}>
+                <div className="contact-icon"><MapPin size={18} /></div>
+                <span>Innovation Hub, Tech Park, India</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="footer-center">
+            <div className="social-icons">
+              <a href="#" className="social-icon"><Facebook size={20} /></a>
+              <a href="#" className="social-icon"><Twitter size={20} /></a>
+              <a href="#" className="social-icon"><Instagram size={20} /></a>
+              <a href="#" className="social-icon"><Linkedin size={20} /></a>
+            </div>
+            <div className="brand-section">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <img src={logo} alt="SAS TECH" style={{ height: '40px', borderRadius: '5px' }} />
+                <span style={{ fontWeight: 800, fontSize: '1.5rem', color: 'var(--bg-deep)' }}>SAS TECH</span>
+              </div>
+              <p style={{ fontSize: '0.8rem', color: 'rgba(5, 8, 5, 0.7)', fontWeight: 600 }}>DELIVERING EXCELLENCE</p>
+            </div>
+          </div>
+
+          <div className="footer-right">
+            <div className="profile-circle">
+              <img src={logo} alt="SAS TECH Logo" />
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  )
+}
+
+export default App
