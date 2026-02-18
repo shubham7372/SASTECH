@@ -6,8 +6,12 @@
   --bg-deep: #050805;
   --bg-surface: #0f140f;
   --text-main: #f0f0f0;
-  --text-muted: #a0a0a0;
+  --text-muted: #b7c2b3;
   --border: rgba(166, 206, 57, 0.2);
+  --bg-dark: #060b06;
+  --neon-green: #a6e22e;
+  --neon-green-dark: #6fae1c;
+  --neon-glow: rgba(166, 226, 46, 0.6);
 
   font-family: 'Outfit', system-ui, sans-serif;
   line-height: 1.6;

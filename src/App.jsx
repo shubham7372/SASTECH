@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './App.css'
 import logo from './assets/logo.jpg'
 import { Phone, Globe, Mail, MapPin, Facebook, Twitter, Instagram, Linkedin, X } from 'lucide-react'
@@ -15,6 +15,8 @@ function App() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState(null) // 'success' | 'error' | null
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
+  const heroRef = useRef(null)
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen)
@@ -80,6 +82,14 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
+  const handleMouseMove = (e) => {
+    if (!heroRef.current) return;
+    const rect = heroRef.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+    setMousePos({ x, y });
+  };
+
   const services = [
     { title: "🌐 Website Development", desc: "Crafting modern, responsive static and dynamic websites tailored to your business goals." },
     { title: "🧩 PHP Development", desc: "Scalable and secure server-side applications using robust PHP frameworks." },
@@ -130,17 +140,36 @@ function App() {
         <button className="get-started-btn" onClick={toggleModal}>ENQUIRE NOW</button>
       </nav>
 
-      <section id="home" className="hero">
-        <img src={logo} className="hero-logo" alt="SAS TECH Logo" />
-        <h1 className="gradient-text">SAS TECH</h1>
-        <p>
-          A full-service software and web development company specializing in end-to-end digital solutions.
-          We deliver high-quality, scalable, and secure applications.
-        </p>
-        <div style={{ display: 'flex', gap: '15px' }}>
-          <button style={{ background: 'var(--primary)', color: 'var(--bg-deep)' }}>Our Portfolio</button>
-          <button onClick={toggleModal}>Learn More</button>
+      <section id="home" className="hero-section" ref={heroRef} onMouseMove={handleMouseMove}>
+        <div className="grid-bg"></div>
+        <div className="glow-orb"></div>
+
+        {/* 3D Rotating Neon Frames */}
+        <div className="neon-frame frame-1" style={{ transform: `translate(${mousePos.x * -8}px, ${mousePos.y * -8}px)` }}></div>
+        <div className="neon-frame frame-2" style={{ transform: `translate(${mousePos.x * 12}px, ${mousePos.y * 12}px)` }}></div>
+        <div className="neon-frame frame-3" style={{ transform: `translate(${mousePos.x * -5}px, ${mousePos.y * 5}px)` }}></div>
+
+        <div className="hero-content">
+          <h1 className="hero-title">
+            SAS <span>TECH</span>
+          </h1>
+          <p className="hero-subtitle">
+            A full-service software and web development company specializing in
+            end-to-end digital solutions.
+          </p>
+
+          <div className="hero-actions">
+            <button className="btn-primary">Our Portfolio</button>
+            <button className="btn-secondary" onClick={toggleModal}>Learn More</button>
+          </div>
         </div>
+
+        {/* Floating Glass Tech Tags with Parallax */}
+        <div className="float-box fb-a" style={{ transform: `translate(${mousePos.x * 20}px, ${mousePos.y * 15}px)` }}>API</div>
+        <div className="float-box fb-b" style={{ transform: `translate(${mousePos.x * -15}px, ${mousePos.y * 20}px)` }}>CLOUD</div>
+        <div className="float-box fb-c" style={{ transform: `translate(${mousePos.x * 10}px, ${mousePos.y * -18}px)` }}>SECURE</div>
+        <div className="float-box fb-d" style={{ transform: `translate(${mousePos.x * -12}px, ${mousePos.y * -10}px)` }}>DEPLOY</div>
+        <div className="float-box fb-e" style={{ transform: `translate(${mousePos.x * 18}px, ${mousePos.y * 8}px)` }}>SCALE</div>
       </section>
 
       <section id="services">
