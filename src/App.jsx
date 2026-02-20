@@ -38,8 +38,9 @@ function App() {
     const ACCESS_KEY = "fe8954f1-a71e-4986-975f-dda742e6368b"
 
     const data = {
-      ...formData,
       access_key: ACCESS_KEY,
+      name: formData.name,
+      email: formData.email,
       subject: `New Enquiry from ${formData.name}`,
       from_name: "SAS TECH Website",
       message: `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.countryCode} ${formData.phone}\n\nEnquiry:\n${formData.enquiry}`
