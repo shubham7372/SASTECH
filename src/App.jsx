@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from 'react'
 import './App.css'
 import logo from './assets/logo.jpg'
-import { Phone, Globe, Mail, MapPin, Facebook, Twitter, Instagram, Linkedin, X } from 'lucide-react'
+import { Phone, Globe, Mail, MapPin, Facebook, Twitter, Instagram, Linkedin, X, Menu } from 'lucide-react'
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [showSplash, setShowSplash] = useState(true)
+  const [menuOpen, setMenuOpen] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -137,8 +138,22 @@ function App() {
           <a href="#process">Process</a>
           <a href="#contact-info">Contact</a>
         </div>
-        <button className="get-started-btn" onClick={toggleModal}>ENQUIRE NOW</button>
+        <button className="get-started-btn desktop-only" onClick={toggleModal}>ENQUIRE NOW</button>
+        <button className="hamburger-btn" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
+          {menuOpen ? <X size={26} /> : <Menu size={26} />}
+        </button>
       </nav>
+
+      {/* Mobile Menu Overlay */}
+      <div className={`mobile-menu-overlay ${menuOpen ? 'open' : ''}`}>
+        <div className="mobile-menu-content">
+          <a href="#home" onClick={() => setMenuOpen(false)}>Home</a>
+          <a href="#services" onClick={() => setMenuOpen(false)}>Services</a>
+          <a href="#process" onClick={() => setMenuOpen(false)}>Process</a>
+          <a href="#contact-info" onClick={() => setMenuOpen(false)}>Contact</a>
+          <button className="mobile-enquire-btn" onClick={() => { setMenuOpen(false); toggleModal(); }}>ENQUIRE NOW</button>
+        </div>
+      </div>
 
       <section id="home" className="hero-section" ref={heroRef} onMouseMove={handleMouseMove}>
         <div className="grid-bg"></div>
@@ -173,8 +188,8 @@ function App() {
       </section>
 
       <section id="services">
-        <h2 style={{ textAlign: 'center', fontSize: '2.5rem', marginBottom: '10px' }}>Our <span style={{ color: 'var(--primary)' }}>Services</span></h2>
-        <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '40px' }}>Comprehensive solutions for your digital growth.</p>
+        <h2 className="section-title">Our <span style={{ color: 'var(--primary)' }}>Services</span></h2>
+        <p className="section-subtitle">Comprehensive solutions for your digital growth.</p>
         <div className="services-grid">
           {services.map((service, index) => (
             <div key={index} className="service-card">
@@ -187,7 +202,7 @@ function App() {
       </section>
 
       <section id="process">
-        <h2 style={{ textAlign: 'center', fontSize: '2.5rem', marginBottom: '50px' }}>How We <span style={{ color: 'var(--primary)' }}>Work</span></h2>
+        <h2 className="section-title" style={{ marginBottom: '50px' }}>How We <span style={{ color: 'var(--primary)' }}>Work</span></h2>
         <div className="process-steps">
           {workflow.map((step, index) => (
             <div key={index} className="step">
@@ -204,8 +219,8 @@ function App() {
           <div className="modal-content glass" onClick={(e) => e.stopPropagation()}>
             <button className="close-btn" onClick={toggleModal}><X size={24} /></button>
             <section id="contact" className="contact-form-section">
-              <h2 style={{ textAlign: 'center', fontSize: '2.5rem', marginBottom: '10px' }}>Get in <span style={{ color: 'var(--primary)' }}>Touch</span></h2>
-              <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '30px', fontSize: '0.9rem' }}>Have a project in mind? Let's discuss how we can help you.</p>
+              <h2 className="section-title">Get in <span style={{ color: 'var(--primary)' }}>Touch</span></h2>
+              <p className="section-subtitle" style={{ fontSize: '0.9rem' }}>Have a project in mind? Let's discuss how we can help you.</p>
 
               <form className="contact-form" onSubmit={handleSubmit}>
                 {submitStatus === 'success' && (
@@ -306,15 +321,15 @@ function App() {
                 <div className="contact-icon"><Phone size={18} /></div>
                 <span>+91 7372849408</span>
               </a>
-              <a href="https://www.sastech.in" target="_blank" rel="noopener noreferrer" className="contact-item" style={{ marginTop: '15px' }}>
+              <a href="https://www.sastech.in" target="_blank" rel="noopener noreferrer" className="contact-item mt-contact">
                 <div className="contact-icon"><Globe size={18} /></div>
                 <span>www.sastech.in</span>
               </a>
-              <a href="mailto:shubhamwork800@gmail.com" className="contact-item" style={{ marginTop: '15px' }}>
+              <a href="mailto:shubhamwork800@gmail.com" className="contact-item mt-contact">
                 <div className="contact-icon"><Mail size={18} /></div>
                 <span>shubhamwork800@gmail.com</span>
               </a>
-              <div className="contact-item" style={{ marginTop: '15px' }}>
+              <div className="contact-item mt-contact">
                 <div className="contact-icon"><MapPin size={18} /></div>
                 <span>Innovation Hub, Tech Park, India</span>
               </div>
