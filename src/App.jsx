@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import './App.css'
 import logo from './assets/logo.jpg'
-import { Phone, Globe, Mail, MapPin, Facebook, Twitter, Instagram, Linkedin, X, Menu } from 'lucide-react'
+import { Phone, Globe, Mail, MapPin, Facebook, Twitter, Instagram, Linkedin, X, Menu, MessageCircle, Send } from 'lucide-react'
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -359,6 +359,27 @@ function App() {
           </div>
         </div>
       </footer>
+
+      {/* Floating Action Buttons */}
+      <div className="floating-actions">
+        <a
+          href="https://wa.me/917372849408"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="fab fab-whatsapp"
+          aria-label="Chat on WhatsApp"
+        >
+          <MessageCircle size={24} />
+        </a>
+        <button
+          className="fab fab-enquire"
+          onClick={toggleModal}
+          aria-label="Enquire Now"
+        >
+          <Send size={20} />
+          <span>Enquire</span>
+        </button>
+      </div>
     </div>
   )
 }

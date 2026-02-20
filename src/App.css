@@ -984,6 +984,87 @@
 }
 
 /* ============================
+   FLOATING ACTION BUTTONS
+   ============================ */
+.floating-actions {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 20px 20px;
+  pointer-events: none;
+}
+
+.fab {
+  pointer-events: all;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none !important;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* WhatsApp Button — Bottom Left */
+.fab-whatsapp {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25D366;
+  color: #ffffff;
+  animation: fabPulse 2.5s ease-in-out infinite;
+}
+
+.fab-whatsapp:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 30px rgba(37, 211, 102, 0.5), 0 0 60px rgba(37, 211, 102, 0.2);
+  background: #25D366;
+  color: #ffffff;
+}
+
+/* Enquire Now Button — Bottom Right */
+.fab-enquire {
+  padding: 14px 28px !important;
+  border-radius: 30px !important;
+  background: var(--neon-green) !important;
+  color: #050805 !important;
+  font-weight: 700 !important;
+  font-size: 0.95rem !important;
+  gap: 8px;
+  letter-spacing: 0.5px;
+  animation: fabPulse 2.5s ease-in-out infinite 0.5s;
+}
+
+.fab-enquire:hover {
+  transform: scale(1.08) !important;
+  box-shadow: 0 0 30px var(--neon-glow), 0 0 60px rgba(166, 226, 46, 0.2) !important;
+  background: var(--neon-green) !important;
+  color: #050805 !important;
+}
+
+.fab-enquire span {
+  font-family: inherit;
+}
+
+@keyframes fabPulse {
+
+  0%,
+  100% {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(166, 226, 46, 0.15);
+  }
+}
+
+/* ============================
    TABLET RESPONSIVE (1024px)
    ============================ */
 @media (max-width: 1024px) {
