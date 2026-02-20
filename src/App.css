@@ -1094,6 +1094,14 @@
   .splash-text .brand-name {
     font-size: 3rem;
   }
+
+  .brand-section span {
+    color: #ffffff !important;
+  }
+
+  .brand-section p {
+    color: rgba(255, 255, 255, 0.8) !important;
+  }
 }
 
 /* ============================
@@ -1267,19 +1275,23 @@
   }
 
   .footer-left h2 {
-    font-size: 1.8rem;
+    font-size: 2.2rem;
+    margin-bottom: 10px;
   }
 
   .footer-left .subtitle {
-    font-size: 0.95rem;
-    margin-bottom: 15px;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
   }
 
   .contact-item {
     justify-content: center;
-    font-size: 0.9rem;
+    font-size: 1rem;
     overflow-wrap: break-word;
     word-break: break-all;
+    width: 100%;
+    padding: 5px 0;
   }
 
   .contact-item span {
@@ -1310,9 +1322,9 @@
   }
 
   .profile-circle {
-    width: 130px;
-    height: 130px;
-    border-width: 5px;
+    width: 160px;
+    height: 160px;
+    border-width: 6px;
   }
 
   .modal-overlay {
@@ -1350,6 +1362,17 @@
   .splash-text .brand-name {
     font-size: 2.5rem;
     letter-spacing: 3px;
+  }
+
+  .brand-section span {
+    font-size: 2rem !important;
+    color: #ffffff !important;
+  }
+
+  .brand-section p {
+    font-size: 1rem !important;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.8) !important;
   }
 
   .splash-logo {
