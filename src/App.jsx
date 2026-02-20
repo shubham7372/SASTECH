@@ -321,7 +321,7 @@ function App() {
                 <div className="contact-icon"><Phone size={18} /></div>
                 <span>+91 7372849408</span>
               </a>
-              <a href="https://www.sastech.in" target="_blank" rel="noopener noreferrer" className="contact-item mt-contact">
+              <a href="https://www.sastechs.in" target="_blank" rel="noopener noreferrer" className="contact-item mt-contact">
                 <div className="contact-icon"><Globe size={18} /></div>
                 <span>www.sastech.in</span>
               </a>
