@@ -1,7 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
+import { Routes, Route, Link, useLocation } from 'react-router-dom'
 import './App.css'
 import logo from './assets/logo.jpg'
-import { Phone, Globe, Mail, MapPin, Facebook, Twitter, Instagram, Linkedin, X, Menu, MessageCircle, Send } from 'lucide-react'
+import Plans from './Plans.jsx'
+import Contact from './Contact.jsx'
+import Chatbot from './Chatbot.jsx'
+import { Phone, Globe, Mail, MapPin, Facebook, Twitter, Instagram, Linkedin, X, Menu, MessageCircle } from 'lucide-react'
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -18,6 +22,7 @@ function App() {
   const [submitStatus, setSubmitStatus] = useState(null) // 'success' | 'error' | null
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const heroRef = useRef(null)
+  const location = useLocation()
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen)
@@ -93,7 +98,7 @@ function App() {
   };
 
   const services = [
-    { title: "🌐 Website Development", desc: "Crafting modern, responsive static and dynamic websites tailored to your business goals." },
+    { title: "🌐 Word Press", desc: "Crafting modern, responsive static and dynamic websites tailored to your business goals." },
     { title: "🧩 PHP Development", desc: "Scalable and secure server-side applications using robust PHP frameworks." },
     { title: "⚛️ MERN Stack", desc: "Full-stack development with MongoDB, Express, React, and Node.js for high-performance apps." },
     { title: "🐍 Python Development", desc: "Leveraging Python for automation, web backends, and data-driven solutions." },
@@ -113,10 +118,10 @@ function App() {
     return (
       <div className="splash-screen">
         <div className="splash-content">
-          <img src={logo} alt="SAS TECH" className="splash-logo" />
+
           <h1 className="splash-text">
             <span>Welcome to</span>
-            <span className="brand-name">SASTECH</span>
+            <span className="brand-name">SAS TECH</span>
           </h1>
           <div className="loading-bar">
             <div className="loading-progress"></div>
@@ -128,7 +133,7 @@ function App() {
 
   return (
     <div className={`app-container ${!showSplash ? 'fade-in' : ''}`}>
-      <nav className="navbar glass">
+      <nav className={`navbar glass ${location.pathname !== '/' ? 'navbar-solid' : ''}`}>
         <div className="logo-container" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <img src={logo} alt="SAS TECH" style={{ height: '40px', borderRadius: '5px' }} />
           <span style={{ fontWeight: 800, fontSize: '1.2rem', color: 'var(--primary)' }}>SAS TECH</span>
@@ -137,7 +142,8 @@ function App() {
           <a href="#home">Home</a>
           <a href="#services">Services</a>
           <a href="#process">Process</a>
-          <a href="#contact-info">Contact</a>
+          <Link to="/plans">Plans</Link>
+          <Link to="/contact">Contact</Link>
         </div>
         <button className="get-started-btn desktop-only" onClick={toggleModal}>ENQUIRE NOW</button>
         <button className="hamburger-btn" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
@@ -151,69 +157,78 @@ function App() {
           <a href="#home" onClick={() => setMenuOpen(false)}>Home</a>
           <a href="#services" onClick={() => setMenuOpen(false)}>Services</a>
           <a href="#process" onClick={() => setMenuOpen(false)}>Process</a>
-          <a href="#contact-info" onClick={() => setMenuOpen(false)}>Contact</a>
+          <Link to="/plans" onClick={() => setMenuOpen(false)}>Plans</Link>
+          <Link to="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
           <button className="mobile-enquire-btn" onClick={() => { setMenuOpen(false); toggleModal(); }}>ENQUIRE NOW</button>
         </div>
       </div>
 
-      <section id="home" className="hero-section" ref={heroRef} onMouseMove={handleMouseMove}>
-        <div className="grid-bg"></div>
-        <div className="glow-orb"></div>
+      <Routes>
+        <Route path="/" element={
+          <>
+            <section id="home" className="hero-section" ref={heroRef} onMouseMove={handleMouseMove}>
+              <div className="grid-bg"></div>
+              <div className="glow-orb"></div>
 
-        {/* 3D Rotating Neon Frames */}
-        <div className="neon-frame frame-1" style={{ transform: `translate(${mousePos.x * -8}px, ${mousePos.y * -8}px)` }}></div>
-        <div className="neon-frame frame-2" style={{ transform: `translate(${mousePos.x * 12}px, ${mousePos.y * 12}px)` }}></div>
-        <div className="neon-frame frame-3" style={{ transform: `translate(${mousePos.x * -5}px, ${mousePos.y * 5}px)` }}></div>
+              {/* 3D Rotating Neon Frames */}
+              <div className="neon-frame frame-1" style={{ transform: `translate(${mousePos.x * -8}px, ${mousePos.y * -8}px)` }}></div>
+              <div className="neon-frame frame-2" style={{ transform: `translate(${mousePos.x * 12}px, ${mousePos.y * 12}px)` }}></div>
+              <div className="neon-frame frame-3" style={{ transform: `translate(${mousePos.x * -5}px, ${mousePos.y * 5}px)` }}></div>
 
-        <div className="hero-content">
-          <h1 className="hero-title">
-            SAS <span>TECH</span>
-          </h1>
-          <p className="hero-subtitle">
-            A full-service software and web development company specializing in
-            end-to-end digital solutions.
-          </p>
+              <div className="hero-content">
+                <h1 className="hero-title">
+                  SAS <span>TECH</span>
+                </h1>
+                <p className="hero-subtitle">
+                  A full-service software and web development company specializing in
+                  end-to-end digital solutions.
+                </p>
 
-          <div className="hero-actions">
-            <button className="btn-primary">Our Portfolio</button>
-            <button className="btn-secondary" onClick={toggleModal}>Learn More</button>
-          </div>
-        </div>
+                <div className="hero-actions">
+                  <button className="btn-primary">Our Portfolio</button>
+                  <button className="btn-secondary" onClick={toggleModal}>Learn More</button>
+                </div>
+              </div>
 
-        {/* Floating Glass Tech Tags with Parallax */}
-        <div className="float-box fb-a" style={{ transform: `translate(${mousePos.x * 20}px, ${mousePos.y * 15}px)` }}>API</div>
-        <div className="float-box fb-b" style={{ transform: `translate(${mousePos.x * -15}px, ${mousePos.y * 20}px)` }}>CLOUD</div>
-        <div className="float-box fb-c" style={{ transform: `translate(${mousePos.x * 10}px, ${mousePos.y * -18}px)` }}>SECURE</div>
-        <div className="float-box fb-d" style={{ transform: `translate(${mousePos.x * -12}px, ${mousePos.y * -10}px)` }}>DEPLOY</div>
-        <div className="float-box fb-e" style={{ transform: `translate(${mousePos.x * 18}px, ${mousePos.y * 8}px)` }}>SCALE</div>
-      </section>
+              {/* Floating Glass Tech Tags with Parallax */}
+              <div className="float-box fb-a" style={{ transform: `translate(${mousePos.x * 20}px, ${mousePos.y * 15}px)` }}>API</div>
+              <div className="float-box fb-b" style={{ transform: `translate(${mousePos.x * -15}px, ${mousePos.y * 20}px)` }}>CLOUD</div>
+              <div className="float-box fb-c" style={{ transform: `translate(${mousePos.x * 10}px, ${mousePos.y * -18}px)` }}>SECURE</div>
+              <div className="float-box fb-d" style={{ transform: `translate(${mousePos.x * -12}px, ${mousePos.y * -10}px)` }}>DEPLOY</div>
+              <div className="float-box fb-e" style={{ transform: `translate(${mousePos.x * 18}px, ${mousePos.y * 8}px)` }}>SCALE</div>
+            </section>
 
-      <section id="services">
-        <h2 className="section-title">Our <span style={{ color: 'var(--primary)' }}>Services</span></h2>
-        <p className="section-subtitle">Comprehensive solutions for your digital growth.</p>
-        <div className="services-grid">
-          {services.map((service, index) => (
-            <div key={index} className="service-card">
-              <span className="service-num">0{index + 1}</span>
-              <h3>{service.title}</h3>
-              <p>{service.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+            <section id="services">
+              <h2 className="section-title">Our <span style={{ color: 'var(--primary)' }}>Services</span></h2>
+              <p className="section-subtitle">Comprehensive solutions for your digital growth.</p>
+              <div className="services-grid">
+                {services.map((service, index) => (
+                  <div key={index} className="service-card">
+                    <span className="service-num">0{index + 1}</span>
+                    <h3>{service.title}</h3>
+                    <p>{service.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
 
-      <section id="process">
-        <h2 className="section-title" style={{ marginBottom: '50px' }}>How We <span style={{ color: 'var(--primary)' }}>Work</span></h2>
-        <div className="process-steps">
-          {workflow.map((step, index) => (
-            <div key={index} className="step">
-              <span className="step-num">0{index + 1}</span>
-              <h3 style={{ marginBottom: '10px' }}>{step.name}</h3>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{step.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+            <section id="process">
+              <h2 className="section-title" style={{ marginBottom: '50px' }}>How We <span style={{ color: 'var(--primary)' }}>Work</span></h2>
+              <div className="process-steps">
+                {workflow.map((step, index) => (
+                  <div key={index} className="step">
+                    <span className="step-num">0{index + 1}</span>
+                    <h3 style={{ marginBottom: '10px' }}>{step.name}</h3>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{step.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          </>
+        } />
+        <Route path="/plans" element={<Plans onEnquire={toggleModal} />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
 
       {isModalOpen && (
         <div className="modal-overlay" onClick={toggleModal}>
@@ -372,14 +387,7 @@ function App() {
         >
           <MessageCircle size={24} />
         </a>
-        <button
-          className="fab fab-enquire"
-          onClick={toggleModal}
-          aria-label="Enquire Now"
-        >
-          <Send size={20} />
-          <span>Enquire</span>
-        </button>
+        <Chatbot />
       </div>
     </div>
   )
