@@ -2,8 +2,10 @@ import { useState, useEffect, useRef } from 'react'
 import { Routes, Route, Link, useLocation } from 'react-router-dom'
 import './App.css'
 import logo from './assets/logo.jpg'
+import heroImg from './assets/hero.png'
 import Plans from './Plans.jsx'
 import Contact from './Contact.jsx'
+import About from './About.jsx'
 import Chatbot from './Chatbot.jsx'
 import { Phone, Globe, Mail, MapPin, Facebook, Twitter, Instagram, Linkedin, X, Menu, MessageCircle } from 'lucide-react'
 
@@ -139,10 +141,11 @@ function App() {
           <span style={{ fontWeight: 800, fontSize: '1.2rem', color: 'var(--primary)' }}>SAS TECH</span>
         </div>
         <div className="nav-links">
-          <a href="#home">Home</a>
+          <Link to="/">Home</Link>
           <a href="#services">Services</a>
           <a href="#process">Process</a>
           <Link to="/plans">Plans</Link>
+          <Link to="/about">About</Link>
           <Link to="/contact">Contact</Link>
         </div>
         <button className="get-started-btn desktop-only" onClick={toggleModal}>ENQUIRE NOW</button>
@@ -154,10 +157,11 @@ function App() {
       {/* Mobile Menu Overlay */}
       <div className={`mobile-menu-overlay ${menuOpen ? 'open' : ''}`}>
         <div className="mobile-menu-content">
-          <a href="#home" onClick={() => setMenuOpen(false)}>Home</a>
+          <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
           <a href="#services" onClick={() => setMenuOpen(false)}>Services</a>
           <a href="#process" onClick={() => setMenuOpen(false)}>Process</a>
           <Link to="/plans" onClick={() => setMenuOpen(false)}>Plans</Link>
+          <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link>
           <Link to="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
           <button className="mobile-enquire-btn" onClick={() => { setMenuOpen(false); toggleModal(); }}>ENQUIRE NOW</button>
         </div>
@@ -175,27 +179,32 @@ function App() {
               <div className="neon-frame frame-2" style={{ transform: `translate(${mousePos.x * 12}px, ${mousePos.y * 12}px)` }}></div>
               <div className="neon-frame frame-3" style={{ transform: `translate(${mousePos.x * -5}px, ${mousePos.y * 5}px)` }}></div>
 
-              <div className="hero-content">
-                <h1 className="hero-title">
-                  SAS <span>TECH</span>
-                </h1>
-                <p className="hero-subtitle">
-                  A full-service software and web development company specializing in
-                  end-to-end digital solutions.
-                </p>
+              <div className="hero-split">
+                <div className="hero-content">
+                  <h1 className="hero-title">
+                    SAS <span>Technologies Software Solutions</span>
+                  </h1>
+                  <p className="hero-subtitle">
+                    SAS Technologies Software Solutions is a full-service software and web development company committed to transforming ideas into powerful digital products. We specialize in designing, developing, and deploying customized technology solutions that help businesses grow, scale, and succeed in the digital world.
+                  </p>
 
-                <div className="hero-actions">
-                  <button className="btn-primary">Our Portfolio</button>
-                  <button className="btn-secondary" onClick={toggleModal}>Learn More</button>
+                  <div className="hero-actions">
+                    <button className="btn-primary">Our Portfolio</button>
+                    <button className="btn-secondary" onClick={toggleModal}>Learn More</button>
+                  </div>
+                </div>
+
+                <div className="hero-image-col">
+                  <div className="hero-img-glow"></div>
+                  <img src={heroImg} alt="SAS Technologies" className="hero-img" />
+                  {/* Floating Glass Tech Tags with Parallax */}
+                  <div className="float-box fb-a" style={{ transform: `translate(${mousePos.x * 20}px, ${mousePos.y * 15}px)` }}>API</div>
+                  <div className="float-box fb-b" style={{ transform: `translate(${mousePos.x * -15}px, ${mousePos.y * 20}px)` }}>CLOUD</div>
+                  <div className="float-box fb-c" style={{ transform: `translate(${mousePos.x * 10}px, ${mousePos.y * -18}px)` }}>SECURE</div>
+                  <div className="float-box fb-d" style={{ transform: `translate(${mousePos.x * -12}px, ${mousePos.y * -10}px)` }}>DEPLOY</div>
+                  <div className="float-box fb-e" style={{ transform: `translate(${mousePos.x * 18}px, ${mousePos.y * 8}px)` }}>SCALE</div>
                 </div>
               </div>
-
-              {/* Floating Glass Tech Tags with Parallax */}
-              <div className="float-box fb-a" style={{ transform: `translate(${mousePos.x * 20}px, ${mousePos.y * 15}px)` }}>API</div>
-              <div className="float-box fb-b" style={{ transform: `translate(${mousePos.x * -15}px, ${mousePos.y * 20}px)` }}>CLOUD</div>
-              <div className="float-box fb-c" style={{ transform: `translate(${mousePos.x * 10}px, ${mousePos.y * -18}px)` }}>SECURE</div>
-              <div className="float-box fb-d" style={{ transform: `translate(${mousePos.x * -12}px, ${mousePos.y * -10}px)` }}>DEPLOY</div>
-              <div className="float-box fb-e" style={{ transform: `translate(${mousePos.x * 18}px, ${mousePos.y * 8}px)` }}>SCALE</div>
             </section>
 
             <section id="services">
@@ -227,6 +236,7 @@ function App() {
           </>
         } />
         <Route path="/plans" element={<Plans onEnquire={toggleModal} />} />
+        <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
 
