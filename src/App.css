@@ -1700,6 +1700,174 @@
   color: var(--primary) !important;
 }
 
+/* Pricing CTA icon gap */
+.pricing-cta {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* ============================
+   PAYMENT METHODS SECTION
+   ============================ */
+.payment-methods-section {
+  position: relative;
+  z-index: 1;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.payment-methods-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(166, 226, 46, 0.08);
+  border: 1px solid rgba(166, 226, 46, 0.2);
+  border-radius: 30px;
+  padding: 10px 24px;
+  color: var(--neon-green);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.payment-methods-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+.payment-method-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 20px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.payment-method-item:hover {
+  border-color: rgba(166, 226, 46, 0.4);
+  color: var(--neon-green);
+  box-shadow: 0 0 15px rgba(166, 226, 46, 0.1);
+  transform: translateY(-2px);
+}
+
+/* ============================
+   PAYMENT TOAST NOTIFICATION
+   ============================ */
+.payment-toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(15, 20, 15, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 16px 24px;
+  min-width: 340px;
+  max-width: 560px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: toastSlideUp 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.payment-toast.success {
+  border: 1px solid rgba(74, 222, 128, 0.4);
+}
+
+.payment-toast.error {
+  border: 1px solid rgba(248, 113, 113, 0.4);
+}
+
+.payment-toast-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: 50%;
+}
+
+.payment-toast.success .payment-toast-icon {
+  background: rgba(74, 222, 128, 0.15);
+  color: #4ade80;
+}
+
+.payment-toast.error .payment-toast-icon {
+  background: rgba(248, 113, 113, 0.15);
+  color: #f87171;
+}
+
+.payment-toast-body {
+  flex: 1;
+}
+
+.payment-toast-body strong {
+  display: block;
+  font-size: 0.95rem;
+  margin-bottom: 2px;
+}
+
+.payment-toast.success .payment-toast-body strong {
+  color: #4ade80;
+}
+
+.payment-toast.error .payment-toast-body strong {
+  color: #f87171;
+}
+
+.payment-toast-body p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.payment-toast-close {
+  background: transparent !important;
+  border: none !important;
+  color: var(--text-muted) !important;
+  font-size: 1.4rem;
+  cursor: pointer;
+  padding: 0 !important;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.payment-toast-close:hover {
+  color: var(--text-main) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+@keyframes toastSlideUp {
+  from {
+    transform: translateX(-50%) translateY(40px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
 /* ============================
    FACTORS SECTION
    ============================ */
@@ -2645,6 +2813,27 @@
 
   .factors-title {
     font-size: 1.8rem;
+  }
+
+  .payment-methods-section {
+    margin-top: 35px;
+  }
+
+  .payment-methods-badge {
+    font-size: 0.78rem;
+    padding: 8px 18px;
+  }
+
+  .payment-method-item {
+    padding: 8px 14px;
+    font-size: 0.8rem;
+  }
+
+  .payment-toast {
+    min-width: 280px;
+    max-width: 90vw;
+    padding: 14px 18px;
+    bottom: 20px;
   }
 
   /* Contact page — tablet */

@@ -1,11 +1,12 @@
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Check, ArrowLeft, Sparkles, LayoutList, Plug, Globe, CloudCog } from 'lucide-react'
+import { Check, ArrowLeft, Sparkles, LayoutList, Plug, Globe, CloudCog, CreditCard, Smartphone, Landmark, Wallet, ShieldCheck, CheckCircle2, XCircle } from 'lucide-react'
 
 const plans = [
     {
         name: 'Basic',
         price: '24,999',
+        priceNum: 2499900, // in paise for Razorpay
         period: '/project',
         description: 'Perfect for small businesses looking to establish their online presence.',
         features: [
@@ -16,12 +17,14 @@ const plans = [
             '1 Revision Round',
             '7-Day Delivery',
         ],
-        cta: 'Get Started',
+        cta: 'Pay & Get Started',
         popular: false,
+        payable: true,
     },
     {
         name: 'Professional',
         price: '49,999',
+        priceNum: 4999900,
         period: '/project',
         description: 'Ideal for growing businesses that need a feature-rich, polished web presence.',
         features: [
@@ -34,12 +37,14 @@ const plans = [
             '14-Day Delivery',
             'Free Domain + Hosting Setup',
         ],
-        cta: 'Choose Professional',
+        cta: 'Pay & Choose Professional',
         popular: true,
+        payable: true,
     },
     {
         name: 'Enterprise',
         price: '1,00,000',
+        priceNum: 10000000,
         period: '/project',
         description: 'For businesses that demand a full-stack, custom-built digital solution.',
         features: [
@@ -55,6 +60,7 @@ const plans = [
         ],
         cta: 'Contact Us',
         popular: false,
+        payable: false,
     },
 ]
 
@@ -81,10 +87,74 @@ const factors = [
     },
 ]
 
+const paymentMethods = [
+    { icon: <CreditCard size={20} />, label: 'Credit / Debit Cards' },
+    { icon: <Smartphone size={20} />, label: 'UPI' },
+    { icon: <Landmark size={20} />, label: 'Net Banking' },
+    { icon: <Wallet size={20} />, label: 'Wallets' },
+]
+
 function Plans({ onEnquire }) {
+    const [toast, setToast] = useState(null) // { type: 'success' | 'error', message }
+
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
+
+    useEffect(() => {
+        if (toast) {
+            const timer = setTimeout(() => setToast(null), 5000)
+            return () => clearTimeout(timer)
+        }
+    }, [toast])
+
+    const handlePayment = (plan) => {
+        if (!window.Razorpay) {
+            setToast({ type: 'error', message: 'Payment gateway failed to load. Please refresh and try again.' })
+            return
+        }
+
+        const options = {
+            key: 'rzp_test_YourTestKeyHere', // Replace with your Razorpay key
+            amount: plan.priceNum,
+            currency: 'INR',
+            name: 'SAS Technologies',
+            description: `${plan.name} Plan – ${plan.description}`,
+            image: '/src/assets/logo.jpg',
+            handler: function (response) {
+                setToast({
+                    type: 'success',
+                    message: `Payment successful! ID: ${response.razorpay_payment_id}. Our team will contact you shortly.`,
+                })
+            },
+            prefill: {
+                name: '',
+                email: '',
+                contact: '',
+            },
+            notes: {
+                plan_name: plan.name,
+                plan_price: plan.price,
+            },
+            theme: {
+                color: '#a6ce39',
+            },
+            modal: {
+                ondismiss: function () {
+                    setToast({ type: 'error', message: 'Payment was cancelled. You can try again anytime.' })
+                },
+            },
+        }
+
+        const rzp = new window.Razorpay(options)
+        rzp.on('payment.failed', function (response) {
+            setToast({
+                type: 'error',
+                message: `Payment failed: ${response.error.description}. Please try again.`,
+            })
+        })
+        rzp.open()
+    }
 
     return (
         <div className="plans-page">
@@ -142,12 +212,29 @@ function Plans({ onEnquire }) {
 
                         <button
                             className={`pricing-cta ${plan.popular ? 'pricing-cta-primary' : 'pricing-cta-outline'}`}
-                            onClick={onEnquire}
+                            onClick={() => plan.payable ? handlePayment(plan) : onEnquire()}
                         >
+                            {plan.payable && <CreditCard size={18} />}
                             {plan.cta}
                         </button>
                     </div>
                 ))}
+            </div>
+
+            {/* Accepted Payment Methods */}
+            <div className="payment-methods-section">
+                <div className="payment-methods-badge">
+                    <ShieldCheck size={20} />
+                    <span>Secure Payments Powered by Razorpay</span>
+                </div>
+                <div className="payment-methods-list">
+                    {paymentMethods.map((method, i) => (
+                        <div key={i} className="payment-method-item">
+                            {method.icon}
+                            <span>{method.label}</span>
+                        </div>
+                    ))}
+                </div>
             </div>
 
             {/* Factors Section */}
@@ -168,6 +255,20 @@ function Plans({ onEnquire }) {
             <div className="plans-footer-note">
                 <p>Need a custom plan? <button className="inline-link" onClick={onEnquire}>Contact us</button> for a tailored quote.</p>
             </div>
+
+            {/* Payment Toast Notification */}
+            {toast && (
+                <div className={`payment-toast ${toast.type}`}>
+                    <div className="payment-toast-icon">
+                        {toast.type === 'success' ? <CheckCircle2 size={22} /> : <XCircle size={22} />}
+                    </div>
+                    <div className="payment-toast-body">
+                        <strong>{toast.type === 'success' ? 'Payment Successful!' : 'Payment Issue'}</strong>
+                        <p>{toast.message}</p>
+                    </div>
+                    <button className="payment-toast-close" onClick={() => setToast(null)}>×</button>
+                </div>
+            )}
         </div>
     )
 }
