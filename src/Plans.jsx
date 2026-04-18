@@ -4,61 +4,109 @@ import { Check, ArrowLeft, Sparkles, LayoutList, Plug, Globe, CloudCog, CreditCa
 
 const plans = [
     {
-        name: 'Basic',
-        price: '24,999',
-        priceNum: 2499900, // in paise for Razorpay
-        period: '/project',
-        description: 'Perfect for small businesses looking to establish their online presence.',
+        name: 'Business Website Plan',
+        price: '13,999',
+        originalPrice: '18,000',
+        priceNum: 1399900,
+        period: '',
+        gst: '+ 18% GST Exclude',
+        description: 'Perfect for small businesses & individuals starting online.',
+        offerIncluded: true,
+        helperText: 'Quick support · Professional delivery',
         features: [
-            '1-Page Website',
-            'Basic UI Design',
-            'Mobile Responsive',
-            'Contact Form Integration',
-            '1 Revision Round',
-            '7-Day Delivery',
+            '8 Pages Professional Business Website',
+            '1 Year Free Domain (.com / .in / .org)',
+            '1 Year Free Cloud Hosting',
+            'Premium Custom Design (Fully Coded – No WordPress)',
+            'Admin Panel Access to Manage Website',
+            'Lifetime 24/7 Hosting Support',
+            'Unlimited Images & Videos Upload',
+            'Free SSL Certificate (HTTPS Security)',
+            'SEO-Friendly & Performance Optimized',
+            '100% Mobile Responsive Design',
+            'Live Chat Integration',
+            'Social Media Linking (FB, Instagram, etc.)',
+            'Call Button & WhatsApp Chat Integration',
+            'Contact/Inquiry Form',
+            'Payment Gateway Integration',
+            '1 Year Free Technical Support',
+            'Annual Renewal ₹4,000 (Hosting)',
         ],
-        cta: 'Pay & Get Started',
+        footnote: '*Offer applies to Domain+Hosting for first year only. Renewal charges apply from year 2.',
+        cta: 'Call Now',
         popular: false,
         payable: true,
     },
     {
-        name: 'Professional',
-        price: '49,999',
-        priceNum: 4999900,
-        period: '/project',
-        description: 'Ideal for growing businesses that need a feature-rich, polished web presence.',
+        name: 'Premium Web Development Package',
+        price: '28,999',
+        originalPrice: '38,999',
+        priceNum: 2899900,
+        period: '',
+        gst: '+ 18% GST Exclude',
+        description: 'A complete premium dynamic website package for growing businesses.',
+        offerIncluded: true,
+        helperText: 'Quick support · Professional delivery',
         features: [
-            'Up to 5 Pages',
-            'Custom UI/UX Design',
-            'SEO Optimized',
-            'CMS Integration',
+            '18 Pages Premium Dynamic Website',
+            '1 Year Free Domain (.com / .in / .org)',
+            '1 Year Free High-Speed Cloud Hosting',
+            'Premium Custom Website Design (Fully Dynamic)',
+            'Full Admin Panel Access',
+            'Google Search Console Setup',
+            'Lifetime 24/7 Hosting Support',
+            'Unlimited Images & Videos Upload',
+            'Free SSL Certificate (HTTPS Security)',
+            'SEO-Friendly Website Structure',
+            '100% Responsive Layout (Mobile, Tablet, Desktop)',
+            'Live Chat Integration',
+            'Payment Gateway Integration (Optional)',
             'Social Media Integration',
-            '3 Revision Rounds',
-            '14-Day Delivery',
-            'Free Domain + Hosting Setup',
+            'Click-to-Call Button',
+            'WhatsApp Chat Button',
+            'Advanced Inquiry Form',
+            'WooCommerce-Compatible (Optional)',
+            '1 Year Free Technical Support',
+            'Annual Hosting Renewal ₹4,000',
         ],
-        cta: 'Pay & Choose Professional',
+        footnote: '*Offer applies to Domain+Hosting for first year only. Renewal charges apply from year 2.',
+        cta: 'Call Now',
         popular: true,
         payable: true,
     },
     {
-        name: 'Enterprise',
-        price: '1,00,000',
-        priceNum: 10000000,
-        period: '/project',
-        description: 'For businesses that demand a full-stack, custom-built digital solution.',
+        name: 'Custom Website Plan',
+        price: '???',
+        originalPrice: '',
+        priceNum: 0,
+        period: '',
+        gst: '+ 18% GST Exclude',
+        description: 'Flexible plan tailored to your specific needs.',
+        offerIncluded: true,
+        helperText: 'Quick support · Professional delivery',
         features: [
-            'Unlimited Pages',
-            'Full-Stack Custom App',
-            'API & Database Integration',
-            'Admin Dashboard',
-            'Payment Gateway Setup',
-            'Priority Support',
-            'Unlimited Revisions',
-            '30-Day Delivery',
-            '3 Months Free Maintenance',
+            'Number of Pages According to Your Requirement',
+            '1 Year Free Domain Name (.com .in .org)',
+            '1 Year Free Cloud Hosting',
+            'Dynamic Custom Website Design – built to your specifications',
+            'Advance Admin Panel Access – According to your requirements.',
+            'Google Search Console Setup (for SEO and site performance insights)',
+            'Lifetime 24/7 Free Hosting Support',
+            'Unlimited Images & Videos Upload',
+            'Free SSL Certificates',
+            'SEO Friendly Website',
+            '100% Mobile-Friendly & Responsive Design',
+            'Live Chat Integration',
+            'Payment Gateway Integration',
+            'Social Media Integration (Facebook, Instagram, etc.)',
+            'Call Button & WhatsApp Chat Integration',
+            'WhatsApp/Chat Integration',
+            'Inquiry/Contact Form',
+            'E-commerce Features (Online Store, Product Listings, Cart & Checkout)',
+            'Year Free Technical Support For Website',
         ],
-        cta: 'Contact Us',
+        footnote: '*Offer applies to Domain+Hosting for first year only. Renewal charges apply from year 2.',
+        cta: 'Call Now',
         popular: false,
         payable: false,
     },
@@ -93,6 +141,34 @@ const paymentMethods = [
     { icon: <Landmark size={20} />, label: 'Net Banking' },
     { icon: <Wallet size={20} />, label: 'Wallets' },
 ]
+
+function CountdownTimer() {
+    const [time, setTime] = useState({ h: 1, m: 23, s: 10 })
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setTime(prev => {
+                let { h, m, s } = prev
+                if (s > 0) { s-- }
+                else if (m > 0) { m--; s = 59 }
+                else if (h > 0) { h--; m = 59; s = 59 }
+                else { h = 23; m = 59; s = 59 } // reset
+                return { h, m, s }
+            })
+        }, 1000)
+        return () => clearInterval(interval)
+    }, [])
+
+    const pad = (n) => String(n).padStart(2, '0')
+
+    return (
+        <div className="countdown-boxes">
+            <span className="cd-box">{pad(time.h)}</span>:
+            <span className="cd-box">{pad(time.m)}</span>:
+            <span className="cd-box">{pad(time.s)}</span>
+        </div>
+    )
+}
 
 function Plans({ onEnquire }) {
     const [toast, setToast] = useState(null) // { type: 'success' | 'error', message }
@@ -182,23 +258,57 @@ function Plans({ onEnquire }) {
                         key={index}
                         className={`pricing-card ${plan.popular ? 'popular' : ''}`}
                     >
-                        {plan.popular && (
-                            <div className="popular-badge">
-                                <Sparkles size={14} />
-                                Most Popular
-                            </div>
-                        )}
+                        {/* Offer + Popular Badge Row */}
+                        <div className="pricing-badges-row">
+                            {plan.offerIncluded && (
+                                <span className="offer-badge">Offer Included</span>
+                            )}
+                            {plan.popular && (
+                                <span className="popular-badge-inline">
+                                    <Sparkles size={12} /> Most Popular
+                                </span>
+                            )}
+                        </div>
 
                         <div className="pricing-card-header">
                             <h3 className="pricing-plan-name">{plan.name}</h3>
-                            <div className="pricing-price">
-                                <span className="currency">₹</span>
-                                <span className="amount">{plan.price}</span>
-                                <span className="period">{plan.period}</span>
-                            </div>
                             <p className="pricing-desc">{plan.description}</p>
+
+                            {/* Price Block */}
+                            <div className="pricing-price-block">
+                                {plan.originalPrice && (
+                                    <div className="pricing-original-row">
+                                        <span className="original-price">₹{plan.originalPrice}</span>
+                                        <span className="discount-in-label">ENDS IN</span>
+                                    </div>
+                                )}
+                                <div className="pricing-price-row">
+                                    <div className="pricing-price">
+                                        <span className="currency">₹</span>
+                                        <span className="amount">{plan.price}</span>
+                                    </div>
+                                    <div className="pricing-countdown">
+                                        <CountdownTimer />
+                                    </div>
+                                </div>
+                                {plan.gst && <span className="pricing-gst">{plan.gst}</span>}
+                            </div>
                         </div>
 
+                        {/* CTA Button */}
+                        <a
+                            href="tel:+917372849408"
+                            className={`pricing-cta ${plan.popular ? 'pricing-cta-primary' : 'pricing-cta-outline'}`}
+                        >
+                            {plan.cta}
+                        </a>
+
+                        {/* Helper Text */}
+                        {plan.helperText && (
+                            <p className="pricing-helper">{plan.helperText}</p>
+                        )}
+
+                        {/* Features */}
                         <ul className="pricing-features">
                             {plan.features.map((feature, i) => (
                                 <li key={i}>
@@ -210,13 +320,10 @@ function Plans({ onEnquire }) {
                             ))}
                         </ul>
 
-                        <button
-                            className={`pricing-cta ${plan.popular ? 'pricing-cta-primary' : 'pricing-cta-outline'}`}
-                            onClick={() => plan.payable ? handlePayment(plan) : onEnquire()}
-                        >
-                            {plan.payable && <CreditCard size={18} />}
-                            {plan.cta}
-                        </button>
+                        {/* Footnote */}
+                        {plan.footnote && (
+                            <p className="pricing-footnote">{plan.footnote}</p>
+                        )}
                     </div>
                 ))}
             </div>

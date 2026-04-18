@@ -3,9 +3,11 @@ import { Routes, Route, Link, useLocation } from 'react-router-dom'
 import './App.css'
 import logo from './assets/logo.jpg'
 import heroImg from './assets/hero.png'
+import servicesHeroImg from './assets/services-hero.png'
 import Plans from './Plans.jsx'
 import Contact from './Contact.jsx'
 import About from './About.jsx'
+import Services from './Services.jsx'
 import Chatbot from './Chatbot.jsx'
 import { Phone, Globe, Mail, MapPin, Facebook, Twitter, Instagram, Linkedin, X, Menu, MessageCircle } from 'lucide-react'
 
@@ -142,7 +144,7 @@ function App() {
         </div>
         <div className="nav-links">
           <Link to="/">Home</Link>
-          <a href="#services">Services</a>
+          <Link to="/services">Services</Link>
           <a href="#process">Process</a>
           <Link to="/plans">Plans</Link>
           <Link to="/about">About</Link>
@@ -158,7 +160,7 @@ function App() {
       <div className={`mobile-menu-overlay ${menuOpen ? 'open' : ''}`}>
         <div className="mobile-menu-content">
           <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
-          <a href="#services" onClick={() => setMenuOpen(false)}>Services</a>
+          <Link to="/services" onClick={() => setMenuOpen(false)}>Services</Link>
           <a href="#process" onClick={() => setMenuOpen(false)}>Process</a>
           <Link to="/plans" onClick={() => setMenuOpen(false)}>Plans</Link>
           <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link>
@@ -207,17 +209,35 @@ function App() {
               </div>
             </section>
 
-            <section id="services">
-              <h2 className="section-title">Our <span style={{ color: 'var(--primary)' }}>Services</span></h2>
-              <p className="section-subtitle">Comprehensive solutions for your digital growth.</p>
-              <div className="services-grid">
-                {services.map((service, index) => (
-                  <div key={index} className="service-card">
-                    <span className="service-num">0{index + 1}</span>
-                    <h3>{service.title}</h3>
-                    <p>{service.desc}</p>
-                  </div>
-                ))}
+            <section id="services" className="services-layer">
+              <div className="services-split">
+                <div className="services-left">
+                  <span className="services-badge-home">What We Offer</span>
+                  <h2 className="services-layer-title">
+                    My <span>Services</span>
+                  </h2>
+                  <p className="services-layer-desc">
+                    Modern web, app, and backend solutions—plus project upgrades and ongoing support for business growth.
+                  </p>
+                  <ul className="services-list-preview">
+                    {services.map((service, index) => (
+                      <li key={index}>
+                        <span className="sl-dot"></span>
+                        <div>
+                          <strong>{service.title}</strong>
+                          <p>{service.desc}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link to="/services" className="btn-primary" style={{ marginTop: '20px', display: 'inline-block', textDecoration: 'none' }}>
+                    View All Services
+                  </Link>
+                </div>
+                <div className="services-right">
+                  <div className="services-right-glow"></div>
+                  <img src={servicesHeroImg} alt="Our Services" className="services-right-img" />
+                </div>
               </div>
             </section>
 
@@ -235,6 +255,7 @@ function App() {
             </section>
           </>
         } />
+        <Route path="/services" element={<Services />} />
         <Route path="/plans" element={<Plans onEnquire={toggleModal} />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
