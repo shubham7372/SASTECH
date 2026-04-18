@@ -4,20 +4,28 @@ import { MessageSquare, X, Send, Bot, User, Loader2 } from 'lucide-react'
 const SYSTEM_PROMPT = `You are SAS TECH's AI assistant — a friendly, professional chatbot for a software & web development company called SAS TECH (www.sastechs.in).
 
 About SAS TECH:
-- We build websites, web applications, and software solutions
-- Services: WordPress, PHP, MERN Stack, Python, .NET development
-- Pricing: Basic (₹4,999/project), Professional (₹14,999/project), Enterprise (₹29,999/project)
+- We build dynamic websites, web applications, and full-stack software solutions.
+- Services: Premium Web Development, E-commerce, App Development, Custom Software, UI/UX Design, and 24/7 Hosting Support.
+- Advanced Technology Stack: 
+  - Languages/Frameworks: CSS, HTML, Java, Angular, Swift, Python, React, Flutter, iOS, Android, Node.js, PHP, .NET
+  - Databases: Firebase, AWS, MongoDB, Ruby on Rails (ROR), Azure
+  - Design & AI Tools: Figma, Sketch, Adobe XD, Gemini, ChatGPT, TensorFlow, Core ML
+- Pricing Plans: 
+  - Business Website Plan (₹13,999) - 8 pages, perfect for small businesses.
+  - Premium Web Development Package (₹28,999) - 18 pages, dynamic features, most popular.
+  - Custom Website Plan - Flexible pricing according to requirements.
+  - Included in plans: 1 Year Free Domain & Cloud Hosting, Free SSL, Admin Panel, Live Chat.
 - Contact: Phone +91 7372849408, Email shubhamwork800@gmail.com
 - Location: Innovation Hub, Tech Park, India
 - Office Hours: Mon-Fri 9AM-7PM, Sat 10AM-4PM, Closed Sunday
 
 Rules:
-- Keep responses concise & helpful (2-4 sentences max)
-- Always be friendly and professional
-- For complex requirements, suggest the user fill the Contact form or call
-- If asked about something outside your knowledge, politely redirect to contacting the team
-- Use emojis sparingly for a modern feel
-- Never share code or internal details`
+- Keep responses concise & helpful (2-4 sentences max).
+- Always be friendly, professional, and knowledgeable about the technologies we use.
+- For complex requirements, suggest the user fill the Contact form, call via WhatsApp, or call directly.
+- If asked about something outside your knowledge, politely redirect to contacting the team.
+- Use emojis sparingly for a modern feel.
+- Never share code or internal logic details.`
 
 function Chatbot() {
     const [isOpen, setIsOpen] = useState(false)
@@ -192,25 +200,25 @@ function getFallbackResponse(input) {
         return "Hello! 👋 Welcome to SAS TECH. How can I help you today? I can tell you about our services, pricing, or help you get in touch with our team!"
     }
     if (lower.match(/price|pricing|cost|plan|package|budget|rate/)) {
-        return "We offer 3 plans:\n• Basic — ₹4,999/project (1-page site)\n• Professional — ₹14,999/project (up to 5 pages + SEO)\n• Enterprise — ₹29,999/project (full-stack custom app)\n\nVisit our Plans page for details! 💰"
+        return "We offer 3 awesome plans:\n• Business Website (₹13,999) — 8 pages, domain+hosting\n• Premium Web Package (₹28,999) — 18 pages, fully dynamic\n• Custom Website — tailored to your exact needs!\nAll include 1 yr free domain & hosting. Visit our Plans page for details! 💰"
     }
     if (lower.match(/service|what do you|offer|build|develop|work/)) {
-        return "We specialize in WordPress, PHP, MERN Stack, Python & .NET development. From landing pages to full-stack apps — we've got you covered! 🚀"
+        return "We specialize in Web & App Development, E-commerce, Custom Software, and UI/UX Design! We also offer 24/7 Hosting Support. From landing pages to full-stack apps — we've got you covered! 🚀"
     }
     if (lower.match(/contact|phone|call|email|reach|talk/)) {
-        return "You can reach us at:\n📞 +91 7372849408\n📧 shubhamwork800@gmail.com\n🌐 www.sastechs.in\n\nOr visit our Contact page to send a message!"
+        return "You can reach us at:\n📞 +91 7372849408\n📧 shubhamwork800@gmail.com\n🌐 www.sastechs.in\n\nOr click the WhatsApp button on our site!"
     }
-    if (lower.match(/wordpress/)) {
-        return "We build stunning WordPress websites — blogs, e-commerce, portfolios, and more. Fast, SEO-friendly, and fully customizable! 🎨"
+    if (lower.match(/tech|stack|language|framework|database|ai|ml|tool/)) {
+        return "We use an Advanced Tech Stack including:\n• Core: React, Node.js, Angular, Python, PHP, .NET, Java\n• Mobile: Flutter, iOS, Android\n• DB/Cloud: AWS, Azure, Firebase, MongoDB\n• AI/ML: Gemini, ChatGPT API, TensorFlow, Core ML."
     }
     if (lower.match(/mern|react|node|mongo/)) {
         return "Our MERN Stack expertise (MongoDB, Express, React, Node.js) lets us build powerful, scalable web applications. Perfect for dashboards, SaaS products & more! ⚡"
     }
     if (lower.match(/php|laravel/)) {
-        return "We develop robust PHP solutions including Laravel apps, custom CMS, and dynamic websites. Reliable & efficient! 🔧"
+        return "We develop robust PHP solutions including custom CMS and dynamic websites. Reliable & efficient! 🔧"
     }
     if (lower.match(/time|deliver|how long|deadline|duration/)) {
-        return "Delivery timelines:\n• Basic: ~7 days\n• Professional: ~14 days\n• Enterprise: ~30 days\nTimelines vary based on project complexity. Contact us for a detailed estimate! ⏱️"
+        return "Delivery timelines typically depend on project complexity, but for our standard website plans we aim for ultra-fast, professional delivery. Contact us for a detailed estimate! ⏱️"
     }
     if (lower.match(/locat|address|office|where/)) {
         return "📍 We're located at Innovation Hub, Tech Park, India.\n\nOffice Hours: Mon-Fri 9AM-7PM, Sat 10AM-4PM."
