@@ -62,7 +62,7 @@ function About() {
                             <span>Building Digital Advantage.</span>
                         </h1>
                         <p className="about-hero-subtitle">
-                            SAS Technologies Software Solutions is a full-service software and web development company committed to transforming ideas into powerful digital products. We specialize in designing, developing, and deploying customized technology solutions that help businesses grow, scale, and succeed in the digital world.
+                            A leading software development and product engineering studio in India, delivering scalable digital solutions for ambitious startups, enterprises, and global brands.
                         </p>
                     </div>
                     <div className="about-hero-image">
