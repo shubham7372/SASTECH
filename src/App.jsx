@@ -8,6 +8,7 @@ import Plans from './Plans.jsx'
 import Contact from './Contact.jsx'
 import About from './About.jsx'
 import Services from './Services.jsx'
+import TechStack from './TechStack.jsx'
 import Chatbot from './Chatbot.jsx'
 import { Phone, Globe, Mail, MapPin, Facebook, Twitter, Instagram, Linkedin, X, Menu, MessageCircle } from 'lucide-react'
 
@@ -240,6 +241,8 @@ function App() {
                 </div>
               </div>
             </section>
+
+            <TechStack />
 
             <section id="process">
               <h2 className="section-title" style={{ marginBottom: '50px' }}>How We <span style={{ color: 'var(--primary)' }}>Work</span></h2>

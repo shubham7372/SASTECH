@@ -9,7 +9,6 @@ const plans = [
         originalPrice: '18,000',
         priceNum: 1399900,
         period: '',
-        gst: '+ 18% GST Exclude',
         description: 'Perfect for small businesses & individuals starting online.',
         offerIncluded: true,
         helperText: 'Quick support · Professional delivery',
@@ -43,7 +42,6 @@ const plans = [
         originalPrice: '38,999',
         priceNum: 2899900,
         period: '',
-        gst: '+ 18% GST Exclude',
         description: 'A complete premium dynamic website package for growing businesses.',
         offerIncluded: true,
         helperText: 'Quick support · Professional delivery',
@@ -80,7 +78,6 @@ const plans = [
         originalPrice: '',
         priceNum: 0,
         period: '',
-        gst: '+ 18% GST Exclude',
         description: 'Flexible plan tailored to your specific needs.',
         offerIncluded: true,
         helperText: 'Quick support · Professional delivery',
@@ -143,7 +140,7 @@ const paymentMethods = [
 ]
 
 function CountdownTimer() {
-    const [time, setTime] = useState({ h: 1, m: 23, s: 10 })
+    const [time, setTime] = useState({ h: 1, m: 59, s: 59 })
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -291,7 +288,6 @@ function Plans({ onEnquire }) {
                                         <CountdownTimer />
                                     </div>
                                 </div>
-                                {plan.gst && <span className="pricing-gst">{plan.gst}</span>}
                             </div>
                         </div>
 
