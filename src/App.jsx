@@ -103,12 +103,12 @@ function App() {
   };
 
   const services = [
-    { title: "🌐 Word Press", desc: "Crafting modern, responsive static and dynamic websites tailored to your business goals." },
-    { title: "🧩 PHP Development", desc: "Scalable and secure server-side applications using robust PHP frameworks." },
-    { title: "⚛️ MERN Stack", desc: "Full-stack development with MongoDB, Express, React, and Node.js for high-performance apps." },
-    { title: "🐍 Python Development", desc: "Leveraging Python for automation, web backends, and data-driven solutions." },
-    { title: "💻 C & C++ Apps", desc: "High-performance desktop applications and system software with optimized code." },
-    { title: "🧱 .NET Development", desc: "Enterprise-grade solutions building reliable and scalable applications on the .NET framework." }
+    { icon: "🌐", title: "Word Press", desc: "Crafting modern, responsive static and dynamic websites tailored to your business goals." },
+    { icon: "🧩", title: "PHP Development", desc: "Scalable and secure server-side applications using robust PHP frameworks." },
+    { icon: "⚛️", title: "MERN Stack", desc: "Full-stack development with MongoDB, Express, React, and Node.js for high-performance apps." },
+    { icon: "🐍", title: "Python Development", desc: "Leveraging Python for automation, web backends, and data-driven solutions." },
+    { icon: "💻", title: "C & C++ Apps", desc: "High-performance desktop applications and system software with optimized code." },
+    { icon: "🧱", title: ".NET Development", desc: "Enterprise-grade solutions building reliable and scalable applications on the .NET framework." }
   ]
 
   const workflow = [
@@ -211,34 +211,42 @@ function App() {
             </section>
 
             <section id="services" className="services-layer">
-              <div className="services-split">
-                <div className="services-left">
-                  <span className="services-badge-home">What We Offer</span>
-                  <h2 className="services-layer-title">
-                    My <span>Services</span>
-                  </h2>
-                  <p className="services-layer-desc">
-                    Modern web, app, and backend solutions—plus project upgrades and ongoing support for business growth.
-                  </p>
-                  <ul className="services-list-preview">
-                    {services.map((service, index) => (
-                      <li key={index}>
-                        <span className="sl-dot"></span>
-                        <div>
-                          <strong>{service.title}</strong>
-                          <p>{service.desc}</p>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                  <Link to="/services" className="btn-primary" style={{ marginTop: '20px', display: 'inline-block', textDecoration: 'none' }}>
-                    View All Services
-                  </Link>
-                </div>
-                <div className="services-right">
-                  <div className="services-right-glow"></div>
-                  <img src={servicesHeroImg} alt="Our Services" className="services-right-img" />
-                </div>
+              <div className="section-header-home" style={{ textAlign: 'center', marginBottom: '50px' }}>
+                <span className="services-badge-home">What We Offer</span>
+                <h2 className="services-layer-title">
+                  My <span>Services</span>
+                </h2>
+                <p className="services-layer-desc" style={{ maxWidth: '700px', margin: '20px auto' }}>
+                  Modern web, app, and backend solutions—plus project upgrades and ongoing support for business growth.
+                </p>
+              </div>
+
+              <div className="services-card-grid-modern">
+                {services.map((service, index) => (
+                  <div key={index} className="s-card-modern">
+                    <div className="s-card-accent-bar"></div>
+                    <div className="s-card-pattern"></div>
+                    <div className="s-card-content">
+                      <div className="s-card-header">
+                        <span className="s-card-icon-wrap">{service.icon}</span>
+                        <h3 className="s-card-title">{service.title}</h3>
+                        <div className="s-card-divider"></div>
+                      </div>
+                      <div className="s-card-info">
+                        <p>{service.desc}</p>
+                      </div>
+                      <div className="s-card-footer">
+                        <span className="s-card-brand">SAS TECH</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div style={{ textAlign: 'center', marginTop: '50px' }}>
+                <Link to="/services" className="btn-primary" style={{ textDecoration: 'none', display: 'inline-block' }}>
+                  View All Services
+                </Link>
               </div>
             </section>
 

@@ -72,13 +72,12 @@ function Services() {
             <div className="services-grid-section">
                 <h2 className="section-title">Our <span style={{ color: 'var(--primary)' }}>Services</span></h2>
                 <p className="section-subtitle">Comprehensive solutions for your digital growth.</p>
-                <div className="services-card-grid">
+                <div className="services-grid">
                     {servicesList.map((service, index) => (
-                        <div key={index} className="s-card">
-                            <div className="s-card-icon">{service.icon}</div>
+                        <div key={index} className="service-card">
+                            <div className="service-num">0{index + 1}</div>
                             <h3>{service.title}</h3>
                             <p>{service.desc}</p>
-                            <div className="s-card-num">0{index + 1}</div>
                         </div>
                     ))}
                 </div>
