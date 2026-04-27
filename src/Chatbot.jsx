@@ -27,6 +27,20 @@ Rules:
 - Use emojis sparingly for a modern feel.
 - Never share code or internal logic details.`
 
+/* Get time-appropriate greeting */
+function getTimeGreeting() {
+    const hour = new Date().getHours()
+    if (hour >= 5 && hour < 12) return 'Good Morning'
+    if (hour >= 12 && hour < 17) return 'Good Afternoon'
+    return 'Good Evening'
+}
+
+/* Check if message is a greeting */
+function isGreeting(text) {
+    const lower = text.toLowerCase().trim()
+    return /^(hi+|hii+|hell+o+|hey+|hola|namaste|greetings?|yo+|sup|helo+|hlo+|hy+)\b/i.test(lower)
+}
+
 function Chatbot() {
     const [isOpen, setIsOpen] = useState(false)
     const [messages, setMessages] = useState([
@@ -37,6 +51,9 @@ function Chatbot() {
     ])
     const [input, setInput] = useState('')
     const [isLoading, setIsLoading] = useState(false)
+    // Conversation phase: 'idle' → 'askName' → 'askEmail' → 'normal'
+    const [chatPhase, setChatPhase] = useState('idle')
+    const [userInfo, setUserInfo] = useState({ name: '', email: '' })
     const messagesEndRef = useRef(null)
     const inputRef = useRef(null)
 
@@ -54,26 +71,106 @@ function Chatbot() {
         }
     }, [isOpen])
 
+    const addBotMessage = (text, delay = 600) => {
+        setIsLoading(true)
+        setTimeout(() => {
+            setMessages((prev) => [...prev, { role: 'assistant', content: text }])
+            setIsLoading(false)
+        }, delay)
+    }
+
+    const sendEnquiryEmail = async (name, email) => {
+        const ACCESS_KEY = 'fe8954f1-a71e-4986-975f-dda742e6368b'
+        const data = {
+            access_key: ACCESS_KEY,
+            name: name,
+            email: email,
+            subject: `New Lead from Chatbot: ${name}`,
+            from_name: 'SAS TECH Website — Chatbot',
+            message: `New enquiry received via Chatbot!\n\nName: ${name}\nEmail: ${email}\n\nThe customer has shared their contact details and is now chatting with the AI.`,
+        }
+
+        try {
+            await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                body: JSON.stringify(data),
+            })
+            console.log('Chatbot enquiry sent successfully')
+        } catch (error) {
+            console.error('Chatbot enquiry error:', error)
+        }
+    }
+
     const sendMessage = async () => {
         const trimmed = input.trim()
         if (!trimmed || isLoading) return
 
-        const userMessage = { role: 'assistant', content: trimmed }
         setMessages((prev) => [...prev, { role: 'user', content: trimmed }])
         setInput('')
+
+        // ─── Phase: idle — detect greeting and ask for name ───
+        if (chatPhase === 'idle') {
+            if (isGreeting(trimmed)) {
+                const greeting = getTimeGreeting()
+                addBotMessage(
+                    `${greeting} Sir/Ma'am! 🙏 Welcome to SAS TECH. How may I help you?\n\nBefore we begin, may I know your **Name** please?`
+                )
+                setChatPhase('askName')
+                return
+            }
+            // If not a greeting, fall through to normal AI chat
+        }
+
+        // ─── Phase: askName — collect name, then ask email ───
+        if (chatPhase === 'askName') {
+            setUserInfo((prev) => ({ ...prev, name: trimmed }))
+            addBotMessage(
+                `Thank you, ${trimmed}! 😊 Could you also share your **Email address** so we can stay in touch?`
+            )
+            setChatPhase('askEmail')
+            return
+        }
+
+        // ─── Phase: askEmail — collect email, then proceed ───
+        if (chatPhase === 'askEmail') {
+            // Basic email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+            if (!emailRegex.test(trimmed)) {
+                addBotMessage('That doesn\'t look like a valid email. Could you please enter a valid email address? 📧')
+                return
+            }
+            setUserInfo((prev) => ({ ...prev, email: trimmed }))
+            
+            // Send enquiry to company email
+            sendEnquiryEmail(userInfo.name, trimmed)
+
+            addBotMessage(
+                `Perfect! Thank you for sharing your details, ${userInfo.name}! 🎉 I've forwarded your enquiry to our team, and they'll get in touch if needed.\n\nNow, how can I assist you today? Feel free to ask about our **Services**, **Pricing**, **Technology Stack**, or anything else!`
+            )
+            setChatPhase('normal')
+            return
+        }
+
+        // ─── Phase: normal / idle (non-greeting) — regular AI chat ───
         setIsLoading(true)
 
         try {
             const apiKey = import.meta.env.VITE_GEMINI_API_KEY
 
             if (!apiKey) {
-                // Fallback smart responses when no API key
                 const fallback = getFallbackResponse(trimmed)
                 setTimeout(() => {
                     setMessages((prev) => [...prev, { role: 'assistant', content: fallback }])
                     setIsLoading(false)
                 }, 800)
                 return
+            }
+
+            // Build context with user info if collected
+            let contextPrompt = SYSTEM_PROMPT
+            if (userInfo.name) {
+                contextPrompt += `\n\nThe user's name is "${userInfo.name}" and their email is "${userInfo.email}". Address them by name when appropriate.`
             }
 
             const chatHistory = messages.map((msg) => ({
@@ -89,7 +186,7 @@ function Chatbot() {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+                        system_instruction: { parts: [{ text: contextPrompt }] },
                         contents: chatHistory,
                         generationConfig: {
                             temperature: 0.7,
@@ -171,7 +268,13 @@ function Chatbot() {
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         onKeyDown={handleKeyDown}
-                        placeholder="Type your message..."
+                        placeholder={
+                            chatPhase === 'askName'
+                                ? 'Enter your name...'
+                                : chatPhase === 'askEmail'
+                                    ? 'Enter your email...'
+                                    : 'Type your message...'
+                        }
                         disabled={isLoading}
                     />
                     <button onClick={sendMessage} disabled={isLoading || !input.trim()} className="chatbot-send">
@@ -196,9 +299,6 @@ function Chatbot() {
 function getFallbackResponse(input) {
     const lower = input.toLowerCase()
 
-    if (lower.match(/hi|hello|hey|greet/)) {
-        return "Hello! 👋 Welcome to SAS TECH. How can I help you today? I can tell you about our services, pricing, or help you get in touch with our team!"
-    }
     if (lower.match(/price|pricing|cost|plan|package|budget|rate/)) {
         return "We offer 3 awesome plans:\n• Business Website (₹13,999) — 8 pages, domain+hosting\n• Premium Web Package (₹28,999) — 18 pages, fully dynamic\n• Custom Website — tailored to your exact needs!\nAll include 1 yr free domain & hosting. Visit our Plans page for details! 💰"
     }
@@ -231,3 +331,4 @@ function getFallbackResponse(input) {
 }
 
 export default Chatbot
+
