@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
 
 :root {
+  /* Default Theme (Neon Dark) */
   --primary: #a6ce39;
   --primary-glow: rgba(166, 206, 57, 0.3);
   --bg-deep: #050805;
@@ -12,6 +13,8 @@
   --neon-green: #a6e22e;
   --neon-green-dark: #6fae1c;
   --neon-glow: rgba(166, 226, 46, 0.6);
+  --card-bg: rgba(10, 10, 10, 0.65);
+  --navbar-bg: rgba(15, 20, 15, 0.7);
 
   font-family: 'Outfit', system-ui, sans-serif;
   line-height: 1.6;
@@ -26,6 +29,41 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+body.bright-mode {
+  --primary: #2e7d32;
+  --primary-glow: rgba(46, 125, 50, 0.2);
+  --bg-deep: #f8faf8;
+  --bg-surface: #ffffff;
+  --text-main: #1a1c1a;
+  --text-muted: #5a635a;
+  --border: rgba(46, 125, 50, 0.15);
+  --bg-dark: #f0f4f0;
+  --neon-green: #388e3c;
+  --neon-green-dark: #1b5e20;
+  --neon-glow: rgba(56, 142, 60, 0.2);
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --navbar-bg: rgba(255, 255, 255, 0.85);
+  color-scheme: light;
+}
+
+body.dark-mode {
+  --primary: #a6ce39;
+  --primary-glow: rgba(166, 206, 57, 0.4);
+  --bg-deep: #000000;
+  --bg-surface: #0a0a0a;
+  --text-main: #ffffff;
+  --text-muted: #a0a0a0;
+  --border: rgba(166, 206, 57, 0.3);
+  --bg-dark: #000000;
+  --neon-green: #a6e22e;
+  --neon-green-dark: #6fae1c;
+  --neon-glow: rgba(166, 226, 46, 0.8);
+  --card-bg: rgba(5, 5, 5, 0.95);
+  --navbar-bg: rgba(0, 0, 0, 0.85);
+  color-scheme: dark;
+}
+
 
 * {
   box-sizing: border-box;

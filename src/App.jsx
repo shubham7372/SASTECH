@@ -10,6 +10,7 @@ import About from './About.jsx'
 import Services from './Services.jsx'
 import TechStack from './TechStack.jsx'
 import Chatbot from './Chatbot.jsx'
+import Mode from './Mode.jsx'
 import { Phone, Globe, Mail, MapPin, Facebook, Twitter, Instagram, Linkedin, X, Menu, MessageCircle } from 'lucide-react'
 
 function App() {
@@ -151,7 +152,10 @@ function App() {
           <Link to="/about">About</Link>
           <Link to="/contact">Contact</Link>
         </div>
-        <button className="get-started-btn desktop-only" onClick={toggleModal}>ENQUIRE NOW</button>
+        <div className="nav-actions desktop-only" style={{ display: 'flex', alignItems: 'center' }}>
+          <Mode />
+          <button className="get-started-btn" onClick={toggleModal}>ENQUIRE NOW</button>
+        </div>
         <button className="hamburger-btn" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
           {menuOpen ? <X size={26} /> : <Menu size={26} />}
         </button>
