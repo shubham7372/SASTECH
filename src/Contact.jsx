@@ -210,11 +210,11 @@ function Contact() {
                                     <span className="info-value">shubhamwork800@gmail.com</span>
                                 </div>
                             </a>
-                            <a href="https://www.sastechs.in" target="_blank" rel="noopener noreferrer" className="contact-info-item">
+                            <a href="https://www.sastech.in" target="_blank" rel="noopener noreferrer" className="contact-info-item">
                                 <div className="contact-info-icon"><Globe size={20} /></div>
                                 <div>
                                     <span className="info-label">Website</span>
-                                    <span className="info-value">www.sastechs.in</span>
+                                    <span className="info-value">www.sastech.in</span>
                                 </div>
                             </a>
                             <div className="contact-info-item">

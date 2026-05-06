@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { MessageSquare, X, Send, Bot, User, Loader2 } from 'lucide-react'
 
-const SYSTEM_PROMPT = `You are SAS TECH's AI assistant — a friendly, professional chatbot for a software & web development company called SAS TECH (www.sastechs.in).
+const SYSTEM_PROMPT = `You are SAS TECH's AI assistant — a friendly, professional chatbot for a software & web development company called SAS TECH (www.sastech.in).
 
 About SAS TECH:
 - We build dynamic websites, web applications, and full-stack software solutions.
@@ -306,7 +306,7 @@ function getFallbackResponse(input) {
         return "We specialize in Web & App Development, E-commerce, Custom Software, and UI/UX Design! We also offer 24/7 Hosting Support. From landing pages to full-stack apps — we've got you covered! 🚀"
     }
     if (lower.match(/contact|phone|call|email|reach|talk/)) {
-        return "You can reach us at:\n📞 +91 7372849408\n📧 shubhamwork800@gmail.com\n🌐 www.sastechs.in\n\nOr click the WhatsApp button on our site!"
+        return "You can reach us at:\n📞 +91 7372849408\n📧 shubhamwork800@gmail.com\n🌐 www.sastech.in\n\nOr click the WhatsApp button on our site!"
     }
     if (lower.match(/tech|stack|language|framework|database|ai|ml|tool/)) {
         return "We use an Advanced Tech Stack including:\n• Core: React, Node.js, Angular, Python, PHP, .NET, Java\n• Mobile: Flutter, iOS, Android\n• DB/Cloud: AWS, Azure, Firebase, MongoDB\n• AI/ML: Gemini, ChatGPT API, TensorFlow, Core ML."

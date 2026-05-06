@@ -56,7 +56,7 @@ function About() {
                 </div>
                 <div className="about-hero-split">
                     <div className="about-hero-content">
-                        <p className="about-tagline">About SasTechs</p>
+                        <p className="about-tagline">About SasTech</p>
                         <h1 className="about-hero-title">
                             Engineering Trust.<br />
                             <span>Building Digital Advantage.</span>
@@ -67,7 +67,7 @@ function About() {
                     </div>
                     <div className="about-hero-image">
                         <div className="about-image-glow"></div>
-                        <img src={aboutImg} alt="About SasTechs" />
+                        <img src={aboutImg} alt="About SasTech" />
                     </div>
                 </div>
             </section>
@@ -80,7 +80,7 @@ function About() {
                     </h2>
                     <div className="about-text-block">
                         <p>
-                            SasTechs is a modern digital transformation company blending product strategy, UI/UX design, and full-stack engineering to create future-ready digital products.
+                            SasTech is a modern digital transformation company blending product strategy, UI/UX design, and full-stack engineering to create future-ready digital products.
                         </p>
                         <p>
                             We are a founder-led technology company specializing in cloud solutions, automation services, web development, and custom software engineering. Our mission is simple — to help businesses build secure, scalable, and high-performance technology ecosystems that drive long-term growth.
@@ -123,7 +123,7 @@ function About() {
             <section className="about-section">
                 <div className="about-container">
                     <h2 className="about-section-title">
-                        Why Choose <span>SasTechs?</span>
+                        Why Choose <span>SasTech?</span>
                     </h2>
                     <div className="about-why-grid">
                         {whyChoose.map((reason, index) => (
@@ -168,7 +168,7 @@ function About() {
                         Let's Build the <span>Future Together</span>
                     </h2>
                     <p className="about-cta-text">
-                        Whether you're launching a startup, modernizing enterprise systems, or scaling digital operations — SasTechs delivers strategic, secure, and scalable technology solutions tailored to your business.
+                        Whether you're launching a startup, modernizing enterprise systems, or scaling digital operations — SasTech delivers strategic, secure, and scalable technology solutions tailored to your business.
                     </p>
                     <a href="/contact" className="about-cta-btn">
                         📩 Contact Us Today
