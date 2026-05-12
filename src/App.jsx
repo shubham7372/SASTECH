@@ -366,6 +366,10 @@ function App() {
                 >
                   {isSubmitting ? 'Sending...' : 'Send Message'}
                 </button>
+                <div style={{ textAlign: 'center', marginTop: '15px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px', fontSize: '0.75rem', opacity: 0.7 }}>
+                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                   <span>Secure 256-bit SSL Encrypted</span>
+                </div>
               </form>
             </section>
           </div>
@@ -417,6 +421,10 @@ function App() {
           <div className="footer-right">
             <div className="profile-circle">
               <img src={logo} alt="SAS TECH Logo" />
+            </div>
+            <div className="security-badge" style={{ marginTop: '20px', display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.1)', padding: '8px 12px', borderRadius: '20px', fontSize: '0.75rem', color: 'var(--bg-deep)', fontWeight: 600 }}>
+              <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#4ade80', boxShadow: '0 0 10px #4ade80' }}></div>
+              <span>SSL SECURE CONNECTION</span>
             </div>
           </div>
         </div>
