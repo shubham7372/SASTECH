@@ -10,10 +10,18 @@
 
 # ── Force HTTPS (redirect HTTP → HTTPS) ──
 [[redirects]]
-  from = "http://sastech.netlify.app/*"
-  to = "https://sastech.netlify.app/:splat"
+  from = "http://sastechs.in/*"
+  to = "https://sastechs.in/:splat"
   status = 301
   force = true
+
+# ── Canonical Domain (redirect netlify.app → sastechs.in) ──
+[[redirects]]
+  from = "https://sastech.netlify.app/*"
+  to = "https://sastechs.in/:splat"
+  status = 301
+  force = true
+
 
 # ── Security Headers ──
 [[headers]]
